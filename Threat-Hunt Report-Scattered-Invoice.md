@@ -620,11 +620,11 @@ Scattered Spider is one of the most prolific financially motivated threat actors
 
 ## Mitigation Recommendations
 
-*No Conditional Access enforcement: Every successful attacker session returned ConditionalAccessStatus: notApplied — sign-ins from an unmanaged Ubuntu Linux device, a Netherlands IP, and a previously unseen geolocation were never challenged. A location-based or device compliance policy would have blocked the session before MFA was ever reached.
+* No Conditional Access enforcement: Every successful attacker session returned ConditionalAccessStatus: notApplied — sign-ins from an unmanaged Ubuntu Linux device, a Netherlands IP, and a previously unseen geolocation were never challenged. A location-based or device compliance policy would have blocked the session before MFA was ever reached.
 
-*No MFA fatigue detection: Multiple ResultType 50074 failures from 205.147.16.190 targeting a single user within minutes generated no alert. The textbook push bombing sequence — repeated MFA failures followed by a single approval — proceeded undetected, allowing the attacker uncontested session access.
+* No MFA fatigue detection: Multiple ResultType 50074 failures from 205.147.16.190 targeting a single user within minutes generated no alert. The textbook push bombing sequence — repeated MFA failures followed by a single approval — proceeded undetected, allowing the attacker uncontested session access.
 
-*No inbox rule monitoring: Two covert inbox rules named . and .. were created within 90 seconds of each other from a foreign IP. One forwarded financial emails to an external Duck.com address, the other silently deleted security notifications. Neither triggered an alert.
+* No inbox rule monitoring: Two covert inbox rules named . and .. were created within 90 seconds of each other from a foreign IP. One forwarded financial emails to an external Duck.com address, the other silently deleted security notifications. Neither triggered an alert.
 
 ## Remediation Actions
 

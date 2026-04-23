@@ -1,6 +1,6 @@
 
 # Threat Hunt Report: Scattered Invoice (BEC Investigation)
-#### Belated participant: Jan Guiao
+#### Author: Jan Guiao
 #### Date: April 2026
 
 

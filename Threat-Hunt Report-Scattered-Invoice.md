@@ -350,7 +350,7 @@ Parse the second rule's configuration. Find the keyword triggers.
 
 Format: Keywords as logged, comma-separated
 ### Evidence: 
-SubjectOrBodyContainsWords from the .. delete rule signified the previous screenshot in Q15; suspicious, security, phishing, unusual, compromised, verify.
+SubjectOrBodyContainsWords from the ".." delete rule signified the previous screenshot in Q15; suspicious, security, phishing, unusual, compromised, verify.
 <img width="896" height="689" alt="image" src="https://github.com/user-attachments/assets/d1bd7b78-eff1-4032-b5d0-de7e10519955" />
 
 ### Answer: suspicious, security, phishing, unusual, compromised, verify
@@ -360,52 +360,79 @@ SubjectOrBodyContainsWords from the .. delete rule signified the previous screen
 <details>
 <summary id="-flag-17">🚩 <strong>Flag 17: <Technique Name></strong></summary>  
 
-### Q17 - Compromised Account 
+### Q17 - BEC Target
 
 ### Objective 
+Pivot to EmailEvents. Filter by the compromised account as sender and the attacker's IP. Who received the fraudulent email?
+
+Format: email@domain.tld
 
 ### Evidence: 
+The RecipientEmailAddress field in the result shows j.reynolds@lognpacific.org — that's the address the attacker sent the fraudulent email to from Mark's session. One email, one recipient, sent directly from the attacker's IP 205.147.16.190 at 22:06.
 
-### Answer:
+<img width="909" height="636" alt="image" src="https://github.com/user-attachments/assets/d7187d84-e43b-48a5-afbe-fe2e43a04c31" />
+
+
+### Answer: j.reynolds@lognpacific.org
 
 </details> 
 
 <details>
 <summary id="-flag-18">🚩 <strong>Flag 18: <Technique Name></strong></summary>  
 
-### Q18 - Compromised Account 
+### Q18 - BEC Subject Line
 
 ### Objective 
+The subject line reveals the social engineering pretext. The attacker replied to an existing thread rather than creating a new email. Classic thread hijacking.
+
+Format: Full subject line as logged
 
 ### Evidence: 
+In the previous query Q17- The subject column highlights the subject line of the invoice "RE: Invoice #INV-2026-0892 - Updated Banking Details"
+<img width="900" height="500" alt="image" src="https://github.com/user-attachments/assets/0e27d1c1-64f2-4f62-b9c3-fd6532318cbb" />
 
-### Answer:
+
+### Answer: RE: Invoice #INV-2026-0892 - Updated Banking Details
 
 </details> 
 
 <details>
 <summary id="-flag-19">🚩 <strong>Flag 19: <Technique Name></strong></summary>  
 
-### Q19 - Compromised Account 
+### Q19 - Email Direction
 
 ### Objective 
+Was this email sent externally or within the organisation? The direction determines whether email gateway rules could have caught it.
+
+Format: EmailDirection value as logged
 
 ### Evidence: 
+The fraudulent email was routed internally between two employees on the same domain, classified as Intra-org in EmailDirection — meaning it bypassed external email gateway controls entirely.
 
-### Answer:
+<img width="891" height="513" alt="image" src="https://github.com/user-attachments/assets/1f1d87fb-42bf-430e-81f7-7ee8a85eb3ed" />
+
+
+### Answer: Intra-org
 
 </details> 
 
 <details>
 <summary id="-flag-20">🚩 <strong>Flag 20: <Technique Name></strong></summary>  
 
-### Q20 - Compromised Account 
+### Q20 - BEC Sender IP
 
 ### Objective 
+Cross-correlate. The SenderIPv4 on the BEC email should match the attacker's sign-in IP. This proves the same session was used for authentication and email sending.
+
+Format: IPv4 address
 
 ### Evidence: 
+SenderIPv4 on the fraudulent email matches the attacker's authenticated session IP from SigninLogs exactly — same IP used to beat MFA, create inbox rules, and send the BEC email. 
 
-### Answer:
+<img width="898" height="513" alt="image" src="https://github.com/user-attachments/assets/199d7fa3-35a9-4a25-b3cd-929c3e7a3470" />
+
+
+### Answer: 205.147.16.190
 
 </details> 
 

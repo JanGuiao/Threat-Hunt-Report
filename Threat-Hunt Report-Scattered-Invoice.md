@@ -439,117 +439,180 @@ SenderIPv4 on the fraudulent email matches the attacker's authenticated session 
 <details>
 <summary id="-flag-21">🚩 <strong>Flag 21: <Technique Name></strong></summary>  
 
-### Q21 - Compromised Account 
+### Q21 - Cloud App Accessed
 
 ### Objective 
+Query CloudAppEvents filtered to the attacker's IP. Look for file access ActionTypes. Check the Application field.
+
+Format: Application name as logged
 
 ### Evidence: 
+Beyond email, the attacker accessed "Microsoft OneDrive for Business" — FileAccessed, ListViewed, ListCreated, and Broke sharing inheritance all logged against the attacker's IP. The Broke sharing inheritance action is particularly significant as it suggests they may have modified file permissions to enable external access to documents.
+<img width="895" height="688" alt="image" src="https://github.com/user-attachments/assets/7bfcd2a6-301f-4ec5-9f3c-bd175602cf65" />
+<img width="886" height="677" alt="image" src="https://github.com/user-attachments/assets/24ffce61-47eb-4759-866b-a81f2b8729a9" />
 
-### Answer:
+### Answer: Microsoft OneDrive for Business
 
 </details> 
 
 <details>
 <summary id="-flag-22">🚩 <strong>Flag 22: <Technique Name></strong></summary>  
 
-### Q22 - Compromised Account 
+### Q22 - SharePoint App Accessed
 
 ### Objective 
+The attacker did not stop at personal files. The sign-in logs show authentication to another Microsoft cloud application during the attack window.
+
+Query SigninLogs for the attacker's IP. What other application did they access?
+
+Format: Application display name (e.g. Microsoft OneDrive for Business)
 
 ### Evidence: 
+The query filtered CloudAppEvents to the attacker's IP 205.147.16.190 across the investigation window, then used summarize count() by Application to group all activity by application name. This produced a distinct list of every cloud app the attacker touched during their session — Microsoft Exchange Online, Microsoft OneDrive for Business, and Microsoft SharePoint Online all surfaced as logged application names. SharePoint was the answer because it was the second app beyond Exchange that the attacker accessed, and the Application field in CloudAppEvents logged it as Microsoft SharePoint Online exactly matching the platform's expected format.
 
-### Answer:
+<img width="893" height="574" alt="image" src="https://github.com/user-attachments/assets/a01328d0-981a-4dab-8e97-ea6578622aba" />
+
+### Answer: Microsoft SharePoint Online
 
 </details> 
 
 <details>
 <summary id="-flag-23">🚩 <strong>Flag 23: <Technique Name></strong></summary>  
 
-### Q23 - Compromised Account 
+### Q23 - Session Correlation
 
 ### Objective 
+One identifier links all attacker activity across sign-ins, inbox rules, and email. Find the session ID that ties the entire investigation together.
+
+Check the CloudAppEvents inbox rule events. In RawEventData, find AppAccessContext.AADSessionId. Then confirm it matches the SessionId in SigninLogs for the attacker's successful authentication.
+
+Format: GUID (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)
 
 ### Evidence: 
+The attacker's entire intrusion — MFA bypass, inbox rules, OneDrive and SharePoint access, and the fraudulent email — all executed under a single AAD session ID, confirmed consistent across both SigninLogs and CloudAppEvents.
 
-### Answer:
+<img width="885" height="695" alt="image" src="https://github.com/user-attachments/assets/8e1c25ad-cad6-41ae-9e8c-37b48589eb01" />
+
+
+### Answer: 00225cfa-a0ff-fb46-a079-5d152fcdf72a
+
 
 </details> 
 
 <details>
 <summary id="-flag-24">🚩 <strong>Flag 24: <Technique Name></strong></summary>  
 
-### Q24 - Compromised Account 
+### Q24 - Conditional Access Status
 
 ### Objective 
+Conditional Access policies can block sign-ins from unmanaged devices or risky locations. Check the attacker's successful sign-in. What was the ConditionalAccessStatus?
+
+Format: Status value as logged
 
 ### Evidence: 
+No Conditional Access policy was evaluated against the attacker's session — meaning there were no policies configured to block or challenge sign-ins from foreign IPs, unmanaged devices, or risky locations.
+<img width="898" height="461" alt="image" src="https://github.com/user-attachments/assets/a4f3da4d-2bb7-44ee-b955-a00055722103" />
 
-### Answer:
+
+### Answer: notApplied
 
 </details> 
 
 <details>
 <summary id="-flag-25">🚩 <strong>Flag 25: <Technique Name></strong></summary>  
 
-### Q25 - Compromised Account 
+### Q25 - MFA Fatigue MITRE ID
 
 ### Objective 
+Map the MFA fatigue technique to the MITRE ATT&CK framework. What technique ID describes repeated MFA push notifications to wear down the user?
+
+Format: MITRE technique ID (e.g., T1234)
 
 ### Evidence: 
+As per https://attack.mitre.org/techniques/T1621/, MITRE ATT&CK T1621 is a docuimented technique in the framework under the Credential Access tactic, added specifically to capture MFA fatigue attacks after Scattered Spider and similar threat actors popularised it. 
 
-### Answer:
+### Answer: T1621
 
 </details> 
 
 <details>
 <summary id="-flag-26">🚩 <strong>Flag 26: <Technique Name></strong></summary>  
 
-### Q26 - Compromised Account 
+### Q26 - Email Rules MITRE ID
 
 ### Objective 
+The attacker created inbox rules to hide evidence. Map this defence evasion technique to MITRE ATT&CK. What technique ID specifically describes hiding malicious activity through email rules?
+
+Format: MITRE technique ID with sub-technique (e.g., T1234.001) 
 
 ### Evidence: 
+As per https://attack.mitre.org/techniques/T1564/008/, specifically covers inbox rules created to forward, delete, or otherwise suppress emails to conceal attacker activity, exactly matching the . and .. rules created in Mark's mailbox.
 
-### Answer:
+### Answer: T1564.008
 
 </details> 
 
 <details>
 <summary id="-flag-27">🚩 <strong>Flag 27: <Technique Name></strong></summary>  
 
-### Q27 - Compromised Account 
+### Q27 - Credential Source
 
 ### Objective 
+The threat group behind this attack is known for purchasing credentials from a specific source. These credentials are harvested by malware that steals saved passwords, session tokens, and browser data from infected machines.
 
+What type of malware typically provides initial credentials to groups like this?
+
+Format: Malware category (one word)
 ### Evidence: 
 
-### Answer:
+Scattered Spider (also known as UNC3944) is known for purchasing stolen credentials from infostealer logs sold on Dark Web marketplaces.  Infostealers  harvest saved browser passwords, session cookies, and autofill data from infected machines — giving attackers valid credentials before they ever attempt login, explaining why they went straight to MFA fatigue rather than brute force.
+
+### Answer: Infostealer
 
 </details> 
 
 <details>
 <summary id="-flag-28">🚩 <strong>Flag 28: <Technique Name></strong></summary>  
 
-### Q28 - Compromised Account 
+### Q28 - Immediate Containment
 
-### Objective 
+### Objective
+The attacker still has a valid session. The inbox rules are still active. What is the first containment action?
+
+Format: Two-word action
 
 ### Evidence: 
+Invalidates the AAD session token 00225cfa-a0ff-fb46-a079-5d152fcdf72a immediately — kicks the attacker out of every active connection across Outlook, OneDrive, and SharePoint in one action. Everything else — removing inbox rules, resetting the password, blocking the IP — comes after, but none of it matters while the attacker still holds a valid session token.
 
-### Answer:
+## Importance
+The attacker's session token is still valid regardless of anything else you do. Even if you reset Mark's password right now, the attacker stays connected — password resets don't invalidate active sessions in Azure AD. Revoking the session forces re-authentication on every active connection, instantly cutting the attacker off from Outlook, OneDrive, and SharePoint simultaneously. It's the only action that stops the bleeding in real time.
+
+### Answer: Revoke Session
 
 </details> 
 
 <details>
 <summary id="-flag-29">🚩 <strong>Flag 29: <Technique Name></strong></summary>  
 
-### Q29 - Compromised Account 
+### Q29 - Threat Actor Attribution
 
 ### Objective 
+Throughout this investigation you observed MFA fatigue, inbox rule persistence, BEC targeting finance, and use of anonymising infrastructure. The briefing mentioned a group that targeted MGM Resorts and Caesars Entertainment.
 
+Who did this?
+
+Format: Threat group name (two words)
 ### Evidence: 
+TTPs across this investigation are textbook Scattered Spider: MFA fatigue via push bombing, session token abuse, inbox rule persistence with minimal-character names, BEC targeting finance, and routing through anonymising infrastructure in the Netherlands. Tactics such as: 
+* MFA fatigue - their signature initial access method, documented across MGM, Caesars, and multiple BEC cases
+* Inbox rules with minimal names - . and .. are deliberately inconspicuous, consistent with their documented persistence.
+* Thread hijacking BEC -  replying to an existing invoice thread rather than creating a new email is a known Scattered Spider social engineering technique.
+* (e.g.)
 
-### Answer:
+Importance:
+Scattered Spider is one of the most prolific financially motivated threat actors currently active, responsible for hundreds of millions in losses across MGM, Caesars, and numerous BEC campaigns. Attribution confirms the attack was targeted and sophisticated — not opportunistic — meaning other accounts and systems in the organisation should be treated as potentially compromised until ruled out.
+
+### Answer: Scattered Spider
 
 </details> 
 

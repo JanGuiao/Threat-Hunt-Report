@@ -609,7 +609,7 @@ TTPs across this investigation are textbook Scattered Spider: MFA fatigue via pu
 * Thread hijacking BEC -  replying to an existing invoice thread rather than creating a new email is a known Scattered Spider social engineering technique.
 * (e.g.)
 
-Importance:
+## Importance:
 Scattered Spider is one of the most prolific financially motivated threat actors currently active, responsible for hundreds of millions in losses across MGM, Caesars, and numerous BEC campaigns. Attribution confirms the attack was targeted and sophisticated — not opportunistic — meaning other accounts and systems in the organisation should be treated as potentially compromised until ruled out.
 
 ### Answer: Scattered Spider

@@ -618,4 +618,20 @@ Scattered Spider is one of the most prolific financially motivated threat actors
 
 
 
-## Last Statements
+## Mitigation Recommendations
+
+*No Conditional Access enforcement: Every successful attacker session returned ConditionalAccessStatus: notApplied — sign-ins from an unmanaged Ubuntu Linux device, a Netherlands IP, and a previously unseen geolocation were never challenged. A location-based or device compliance policy would have blocked the session before MFA was ever reached.
+
+*No MFA fatigue detection: Multiple ResultType 50074 failures from 205.147.16.190 targeting a single user within minutes generated no alert. The textbook push bombing sequence — repeated MFA failures followed by a single approval — proceeded undetected, allowing the attacker uncontested session access.
+
+*No inbox rule monitoring: Two covert inbox rules named . and .. were created within 90 seconds of each other from a foreign IP. One forwarded financial emails to an external Duck.com address, the other silently deleted security notifications. Neither triggered an alert.
+
+## Remediation Actions
+
+* Enforce Conditional Access policies to block or challenge sign-ins from foreign geolocations and unmanaged devices.
+* Replace push-based MFA with number matching or FIDO2 keys to eliminate MFA fatigue as an attack vector.
+* Block auto-forwarding to external domains via Exchange Online transport rules.
+* Alert on New-InboxRule creation events from IPs outside a user's established baseline.
+* Reset m.smith@lognpacific.org credentials, revoke all active sessions, and audit all mailbox rules across the tenant.
+* Block 205.147.16.190 at the network perimeter and flag insights@duck.com as a known exfiltration address.
+

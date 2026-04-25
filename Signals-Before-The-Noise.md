@@ -16,7 +16,7 @@ Someone on the cloud team posted a photo on LinkedIn. Workstation, Azure portal 
 
 "I need you to figure out what was exposed, whether anyone noticed, and whether anyone acted on it. Start with the images. Extract what you can. Then pivot to telemetry. If someone used what was in that photo to get in, I want to know about it before they come back."
 
-## Scenario/Finding: 
+## Scenario/Finding/Goal: 
 
 There is no incident. There are no alerts. There is no suspected compromise. Yet. Review the publicly visible evidence. Determine what was exposed. Investigate whether the exposure was exploited. Follow the telemetry wherever it leads.
 

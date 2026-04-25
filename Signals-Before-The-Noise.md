@@ -300,11 +300,108 @@ Which countries were associated with successful RDP authentication events?
 Format: Country 1, Country 2
 
 ### Evidence
+To identify this, we extended the Q16 query by replacing dcount(country_name) with summarize count() by country_name — shifting from counting distinct countries to showing each country alongside its successful logon volume. This gave us both the geographic origin and the weight of activity per country, revealing Uruguay as the dominant source of successful authentications.
+<img width="898" height="385" alt="image" src="https://github.com/user-attachments/assets/981936bd-f18f-4eac-beb4-e9e17d8d4371" />
+
+### Answer
+Uruguay, United States
+
+### Q18 - Unexpected Country
+
+### Objective
+Which account was used in the successful RDP authentication originating from the unexpected country?
+
+Format: AccountName
+### Evidence
+PHTG operates exclusively in the United States, making the 23 successful RDP authentications from Uruguay entirely outside expected operational baseline. The United States activity (6 successes) could reasonably be attributed to legitimate administrative access, but Uruguay has no business justification whatsoever - WITH 23 successful logons from Uruguay.
+<img width="898" height="385" alt="image" src="https://github.com/user-attachments/assets/1330e98d-7eef-46d2-bde0-9f870df337aa" />
+
+
+### Answer
+Uruguay
+
+
+### Q19 - Account Used
+
+### Objective
+Which account was used in the successful RDP authentication originating from the unexpected country?
+
+Format: AccountName
+### Evidence
+The account used in all successful RDP authentications originating from Uruguay was vmadminusername — a generic, predictable administrator account name. The account name itself suggests it was a default or lazily named admin account on the VM, making it trivial for automated credential stuffing tools to guess. This confirms the attacker successfully brute-forced their way in via RDP using this account.
+
+To identify this, we restructured the query into two let blocks to avoid the KQL syntax limitation of nesting let inside a subquery. The first block (GeoTable) loaded the GeoIP dataset, the second (UruguayIPs) filtered successful logons and geo-matched them to Uruguay, extracting distinct source IPs. The final query then joined back to DeviceLogonEvents on those IPs to retrieve the AccountName field.
+<img width="898" height="393" alt="image" src="https://github.com/user-attachments/assets/8bf75347-2658-4be3-8e52-ada80fe4ee56" />
+
+### Answer
+vmadminusername
+
+
+
+### Q20 - Uruguay Success Count
+
+### Objective
+How many successful RDP authentication events originated from the unexpected country?
+
+Format: Number only
+
+### Evidence
+Going back to the Q17 query, results already revealed that 23 successful RDP authentication events originated from Uruguay. 
+
+<img width="898" height="385" alt="image" src="https://github.com/user-attachments/assets/981936bd-f18f-4eac-beb4-e9e17d8d4371" />
+
+### Answer
+23
+
+
+### Q21 - First RemoteIP from Uruguay
+
+### Objective
+What is the RemoteIP associated with the first successful RDP authentication from the unexpected country?
+
+Format: IPv4 address
+
+### Evidence
+The first successful RDP authentication from Uruguay occurred on 2025-12-12 at 05:47 UTC from IP 173.244.55.131. This is significant — the LinkedIn post exposed the VM on 12/11, and by 12/12 an attacker had already successfully brute-forced their way in via RDP.
+
+To identify this, we took the GeoIP-enriched query from Q20, filtered to Uruguay successful logons, sorted by TimeGenerated asc and used take 1 to isolate the earliest event, projecting just the timestamp and source IP.
+
+<img width="892" height="395" alt="image" src="https://github.com/user-attachments/assets/b9f79907-14c2-4674-8515-60ea694e783c" />
+
+### Answer
+173.244.55.131
+
+
+### Q22 - Second RemoteIP from Uruguay
+
+### Objective
+Besides the RemoteIP from Q21, what is the other RemoteIP associated with successful authentication events from the unexpected country?
+
+### Evidence
+The second Uruguay-associated IP was 173.244.55.128 — and critically, both IPs (173.244.55.131 and 173.244.55.128) fall within the same /24 subnet (173.244.55.0/24). This is a strong indicator of a single threat actor operating across multiple IPs within the same infrastructure block, likely rotating IPs to evade simple IP-based blocking while maintaining persistent RDP access to the VM.
+
+To identify this, we reused the Q21 query and added where RemoteIP != "173.244.55.131" to exclude the first known IP, then used distinct RemoteIP to surface the remaining unique source address from the Uruguay successful logons.
+<img width="889" height="359" alt="image" src="https://github.com/user-attachments/assets/f47a1640-3827-46c1-a4d9-8d84a16583bd" />
+
+### Answer
+173.244.55.128
+
+
+### Q23 - First Notable Process
+
+### Objective
+Session startup is noisy. After the first successful Uruguay authentication, routine processes run before any operator behaviour. Identify the first notable process ... the earliest one that indicates a person began interacting with the system purposefully.
+
+Format: FileName
+
+### Evidence
 
 ### Answer
 
 
-### Q17 - Successful Countries
+
+
+### Q24 - Successful Countries
 
 ### Objective
 
@@ -314,7 +411,24 @@ Format: Country 1, Country 2
 
 
 
-### Q17 - Successful Countries
+### Q25 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+
+### Q26 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+### Q27 - Successful Countries
 
 ### Objective
 
@@ -324,8 +438,16 @@ Format: Country 1, Country 2
 
 
 
+### Q28 - Successful Countries
 
-### Q17 - Successful Countries
+### Objective
+
+### Evidence
+
+### Answer
+
+
+### Q29 - Successful Countries
 
 ### Objective
 
@@ -335,7 +457,7 @@ Format: Country 1, Country 2
 
 
 
-### Q17 - Successful Countries
+### Q30 - Successful Countries
 
 ### Objective
 
@@ -345,7 +467,7 @@ Format: Country 1, Country 2
 
 
 
-### Q17 - Successful Countries
+### Q31 - Successful Countries
 
 ### Objective
 
@@ -355,7 +477,16 @@ Format: Country 1, Country 2
 
 
 
-### Q17 - Successful Countries
+### Q32 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+
+### Q33 - Successful Countries
 
 ### Objective
 
@@ -365,35 +496,7 @@ Format: Country 1, Country 2
 
 
 
-
-### Q17 - Successful Countries
-
-### Objective
-
-### Evidence
-
-### Answer
-
-
-
-### Q17 - Successful Countries
-
-### Objective
-
-### Evidence
-
-### Answer
-
-
-### Q17 - Successful Countries
-
-### Objective
-
-### Evidence
-
-### Answer
-
-### Q17 - Successful Countries
+### Q34 - Successful Countries
 
 ### Objective
 
@@ -403,16 +506,7 @@ Format: Country 1, Country 2
 
 
 
-### Q17 - Successful Countries
-
-### Objective
-
-### Evidence
-
-### Answer
-
-
-### Q17 - Successful Countries
+### Q35 - Successful Countries
 
 ### Objective
 
@@ -422,7 +516,7 @@ Format: Country 1, Country 2
 
 
 
-### Q17 - Successful Countries
+### Q36 - Successful Countries
 
 ### Objective
 
@@ -431,18 +525,7 @@ Format: Country 1, Country 2
 ### Answer
 
 
-
-### Q17 - Successful Countries
-
-### Objective
-
-### Evidence
-
-### Answer
-
-
-
-### Q17 - Successful Countries
+### Q37 - Successful Countries
 
 ### Objective
 
@@ -451,55 +534,7 @@ Format: Country 1, Country 2
 ### Answer
 
 
-### Q17 - Successful Countries
-
-### Objective
-
-### Evidence
-
-### Answer
-
-
-
-### Q17 - Successful Countries
-
-### Objective
-
-### Evidence
-
-### Answer
-
-
-
-### Q17 - Successful Countries
-
-### Objective
-
-### Evidence
-
-### Answer
-
-
-
-### Q17 - Successful Countries
-
-### Objective
-
-### Evidence
-
-### Answer
-
-
-### Q17 - Successful Countries
-
-### Objective
-
-### Evidence
-
-### Answer
-
-
-### Q17 - Successful Countries
+### Q38 - Successful Countries
 
 ### Objective
 

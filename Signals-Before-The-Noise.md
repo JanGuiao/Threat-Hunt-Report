@@ -66,7 +66,7 @@ Right there in the Networking section of the screnshot is where the Public IP Ad
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 3: <Technique Name></strong></summary>  
 ###  Q03 - When Context Becomes Actionable
 
 ### Objective 

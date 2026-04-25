@@ -395,20 +395,32 @@ Session startup is noisy. After the first successful Uruguay authentication, rou
 Format: FileName
 
 ### Evidence
+After session startup noise (DismHost.exe at 05:48 UTC launched by cleanmgr.exe /autoclean), the first notable process indicating purposeful human operator interaction was notepad.exe, launched at 2025-12-12 16:37:41 UTC under vmadminusername, spawned directly by:
+"powershell.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Lab\SarahChen_Activity.ps1"
+
+The -NoProfile -ExecutionPolicy Bypass flags are classic attacker PowerShell execution patterns — bypassing execution policy restrictions while avoiding profile scripts that might alert or log. The script name SarahChen_Activity.ps1 directly references the cloud engineer whose LinkedIn post exposed the VM, suggesting the attacker was either mimicking legitimate user activity or had access to PHTG's internal lab scripts.
+
+<img width="892" height="527" alt="image" src="https://github.com/user-attachments/assets/a733b38e-e56f-4eb0-845e-392adc7850fb" />
 
 ### Answer
+notepad.exe
 
 
 
-
-### Q24 - Successful Countries
+### Q24 - Sensitive Text File
 
 ### Objective
+Multiple text files were opened during the session. Which one contains internal security-relevant content that would meaningfully reduce an attacker's effort if reviewed?
 
+Format: FileName
 ### Evidence
+(C:\Users\vmAdminUsername\Documents\PHTG\notes_sarah.txt) stands out as the most security-relevant. The file is named after Sarah Chen — the same cloud engineer whose LinkedIn post exposed the VM's public IP and triggered this entire investigation. Her personal notes stored on the VM would likely contain infrastructure details, credentials, service configurations, or internal operational context. 
+
+<img width="885" height="495" alt="image" src="https://github.com/user-attachments/assets/1db02eef-d543-4f72-a5f1-dd5947afeb32" />
+
 
 ### Answer
-
+notes_sarah.txt
 
 
 ### Q25 - Successful Countries

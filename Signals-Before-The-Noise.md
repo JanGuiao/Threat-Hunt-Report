@@ -584,61 +584,62 @@ After execution, what external IP did the compromised device attempt to communic
 Format: IPv4 address
 
 ### Evidence
+After the payload ran, it tried calling back to 173.244.55.130 on port 4444 — that's the default Meterpreter C2 port, so this is exactly what you'd expect to see. It tried three times across both execution phases — twice as sarah_chen_notes.exe (12/12 and 12/13) and once as phtg.exe (12/13). All three came back as ConnectionFailed, so the C2 server wasn't home at the time — but the intent is pretty obvious.
+What makes this even more interesting is that 173.244.55.130 sits in the exact same /24 subnet as the Uruguay RDP IPs we found earlier (173.244.55.128 and 173.244.55.131). Same infrastructure block being used for both the RDP brute-force and the Meterpreter C2 — that's the same threat actor across the whole chain, from initial access all the way through to payload execution.
+
+https://www.rapid7.com/blog/post/2013/02/14/port-forwarding-how-to-verify-that-the-payload-can-connect-back-to-metasploit/
+
+<img width="927" height="713" alt="image" src="https://github.com/user-attachments/assets/1df5a279-b0ed-44a8-9edc-d93b0d7600f9" />
 
 ### Answer
+173.244.55.130
 
 
-
-### Q35 - Successful Countries
+### Q35 - C2 Geography
 
 ### Objective
+Where is the C2 infrastructure located?
 
+Format: Country, Continent
 ### Evidence
+The C2 infrastructure at 173.244.55.130 is located in Uruguay, South America. This confirms what was already suspected — the same threat actor used infrastructure in Uruguay for the RDP brute-force (173.244.55.128 and 173.244.55.131), the successful logons, and now the Meterpreter C2 server.
+
+<img width="933" height="428" alt="image" src="https://github.com/user-attachments/assets/cb6afc13-6ca4-41b7-9c9c-061248d6ce64" />
 
 ### Answer
+Uruguay, South America
 
 
-
-### Q36 - Successful Countries
+### Q36 - C2 Remote Port
 
 ### Objective
+Threat actors often avoid 80/443 after execution. What remote port did the post-execution process use?
+
+Format: Port number
 
 ### Evidence
+The payload consistently called back to the C2 server on port 4444 across all three connection attempts. This is the default Meterpreter reverse TCP port and a deliberate choice — rather than blending in with normal web traffic on 80/443, the attacker used 4444, which is only significant if there's nothing on the network monitoring for it
+
+https://www.rapid7.com/blog/post/2013/02/14/port-forwarding-how-to-verify-that-the-payload-can-connect-back-to-metasploit/
+
+<img width="929" height="486" alt="image" src="https://github.com/user-attachments/assets/d69b2c57-7e68-4453-ae79-8e709d07beb3" />
 
 ### Answer
+4444
 
-
-### Q37 - Successful Countries
+### Q37 - Repurposed Baseline
 
 ### Objective
+The attacker did not write persistence from scratch. They placed the final payload inside a directory belonging to a legitimate internal service rolled out the same week. What was the name of that service?
+
+Format: Service or directory name
 
 ### Evidence
+The attacker didn't build their own persistence directory — they just moved into one that already existed. The final payload PHTG.exe and the batch file Launch.bat were both dropped into C:\ProgramData\PHTG\HealthCloud\, which is the legitimate HealthCloud service directory rolled out just the day before on 11 December 2025. Hiding malicious files inside a brand new internal service is smart — anyone glancing at that folder would assume everything in it belongs there. I spotted this across the file rename and execution events tracked from Q25 through Q33.
+ 
+<img width="921" height="725" alt="image" src="https://github.com/user-attachments/assets/475ef1da-cf69-4e90-a8f8-3e325eb2d70f" />
 
 ### Answer
+HealthCloud
 
-
-### Q38 - Successful Countries
-
-### Objective
-
-### Evidence
-
-### Answer
-
-
-### Q17 - Successful Countries
-
-### Objective
-
-### Evidence
-
-### Answer
-
-### Q17 - Successful Countries
-
-### Objective
-
-### Evidence
-
-### Answer
 

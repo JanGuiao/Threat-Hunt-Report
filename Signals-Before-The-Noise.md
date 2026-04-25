@@ -87,7 +87,7 @@ D
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 4: <Technique Name></strong></summary>  
 ### Q04 - OSINT Correlation
 
 ### Objective
@@ -110,7 +110,7 @@ C
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 5: <Technique Name></strong></summary>  
 ### Q05 - Evidence Source Selection
 
 ### Objective
@@ -126,7 +126,7 @@ D
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 6: <Technique Name></strong></summary>  
 ### Q06 - Broad Scanning Indicators
 
 ### Objective
@@ -146,7 +146,7 @@ Format: Port number
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 7: <Technique Name></strong></summary>  
 ### Q07 - Exposure Activity Volume
 
 ### Objective
@@ -163,7 +163,7 @@ Regarding the previous (Q06), we can see that 194 inbound connection attempts ag
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 8: <Technique Name></strong></summary>  
 ### Q08 - Source Diversity
 
 ### Objective
@@ -180,7 +180,7 @@ Format: Number only
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 9: <Technique Name></strong></summary>  
 ### Q09 - Connection Outcomes
 
 ### Objective
@@ -199,7 +199,7 @@ Format: Number only
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 10: <Technique Name></strong></summary>  
 ### Q10 - Countries with RDP Activity
 
 ### Objective
@@ -223,7 +223,7 @@ The ipv4_lookup() guidance — the briefing instructed analysts to "prepend this
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 11: <Technique Name></strong></summary>  
 ### Q11 - Total External Auth Volume
 
 ### Objective
@@ -240,7 +240,7 @@ This pulls all authentication events originating from public/external IPs agains
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 12: <Technique Name></strong></summary>  
 ### Q12 - RDP Auth Volume 
 
 ### Objective
@@ -257,7 +257,7 @@ It is worth noting that in this dataset RDP auth volume shows both Network and R
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 13: <Technique Name></strong></summary>  
 ### Q13 - Dominant Auth Outcome
 
 ### Objective
@@ -275,7 +275,7 @@ LogonFailed
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 14: <Technique Name></strong></summary>  
 ### Q14 - Dominant Failure Reason
 
 ### Objective
@@ -292,7 +292,7 @@ InvalidUserNameOrPassword
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 15: <Technique Name></strong></summary>  
 ### Q15 - Countries from Auth Activity
 
 ### Objective
@@ -310,7 +310,7 @@ RDP-related authentication attempts originated from 17 distinct countries, confi
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 16: <Technique Name></strong></summary>  
 ### Q16 - Countries with Successful Auth
 
 ### Objective
@@ -327,7 +327,7 @@ Format: Number only
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 17: <Technique Name></strong></summary>  
 ### Q17 - Successful Countries
 
 ### Objective
@@ -344,7 +344,7 @@ Uruguay, United States
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 18: <Technique Name></strong></summary>  
 ### Q18 - Unexpected Country
 
 ### Objective
@@ -361,7 +361,7 @@ Uruguay
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 19: <Technique Name></strong></summary>  
 ### Q19 - Account Used
 
 ### Objective
@@ -379,7 +379,7 @@ vmadminusername
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 20: <Technique Name></strong></summary>  
 ### Q20 - Uruguay Success Count
 
 ### Objective
@@ -397,7 +397,7 @@ Going back to the Q17 query, results already revealed that 23 successful RDP aut
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 21: <Technique Name></strong></summary>  
 ### Q21 - First RemoteIP from Uruguay
 
 ### Objective
@@ -417,7 +417,7 @@ To identify this, we took the GeoIP-enriched query from Q20, filtered to Uruguay
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 22: <Technique Name></strong></summary>  
 ### Q22 - Second RemoteIP from Uruguay
 
 ### Objective
@@ -434,7 +434,7 @@ To identify this, we reused the Q21 query and added where RemoteIP != "173.244.5
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 23: <Technique Name></strong></summary>  
 ### Q23 - First Notable Process
 
 ### Objective
@@ -455,7 +455,7 @@ notepad.exe
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 24: <Technique Name></strong></summary>  
 ### Q24 - Sensitive Text File
 
 ### Objective
@@ -472,7 +472,7 @@ notes_sarah.txt
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 25: <Technique Name></strong></summary>  
 ### Q25 - First Executable Form
 
 ### Objective
@@ -492,7 +492,7 @@ Sarah_Chen_Notes.exe > .exe.Txt
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 26: <Technique Name></strong></summary>  
 ### Q26 - Double-Extension Evasion
 
 ### Objective
@@ -508,7 +508,7 @@ Sarah_Chen_Notes.exe.Txt
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 27: <Technique Name></strong></summary>  
 ### Q27 - File SHA256
 
 ### Objective
@@ -527,7 +527,7 @@ The SHA256 hash of the payload file Sarah_Chen_Notes.exe is 224462ce5e3304e3fd08
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 28: <Technique Name></strong></summary>  
 ### Q28 - Final File Name
 
 ### Objective
@@ -551,7 +551,7 @@ Tracking the payload hash 224462ce5e3304e3fd0875eeabc829810a894911e3d4091d4e60e6
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 29: <Technique Name></strong></summary>  
 ### Q29 - File Classification
 
 ### Objective
@@ -567,7 +567,7 @@ Meterpreter
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 30: <Technique Name></strong></summary>  
 ### Q30 - Why Did It Run?
 
 ### Objective
@@ -586,7 +586,7 @@ Passive Mode
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 31: <Technique Name></strong></summary>  
 ### Q31 - First Execution
 
 ### Objective
@@ -606,7 +606,7 @@ Sarah_Chen_Notes.exe
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 32: <Technique Name></strong></summary>  
 ### Q32 - Parent Process
 
 ### Objective
@@ -624,7 +624,7 @@ cmd.exe
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 33: <Technique Name></strong></summary>  
 ### Q33 - Batch File Wrapper
 
 ### Objective
@@ -642,7 +642,7 @@ C:\ProgramData\PHTG\HealthCloud\Launch.bat
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 34: <Technique Name></strong></summary>  
 ### Q34 - C2 IP
 
 ### Objective
@@ -663,7 +663,7 @@ https://www.rapid7.com/blog/post/2013/02/14/port-forwarding-how-to-verify-that-t
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 35: <Technique Name></strong></summary>  
 ### Q35 - C2 Geography
 
 ### Objective
@@ -680,7 +680,7 @@ Uruguay, South America
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 36: <Technique Name></strong></summary>  
 ### Q36 - C2 Remote Port
 
 ### Objective
@@ -700,7 +700,7 @@ https://www.rapid7.com/blog/post/2013/02/14/port-forwarding-how-to-verify-that-t
 </details> 
 
 <details>
-<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+<summary id="-flag-2">🚩 <strong>Flag 37: <Technique Name></strong></summary>  
 ### Q37 - Repurposed Baseline
 
 ### Objective

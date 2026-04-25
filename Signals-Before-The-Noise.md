@@ -717,3 +717,22 @@ The attacker didn't build their own persistence directory — they just moved in
 HealthCloud
 </details> 
 
+
+
+## Mitigation Recommendations
+
+* No RDP exposure controls: The VM azwks-phtg-02 was deployed with a public IP and RDP open to the internet with no NSG restriction. 173 unique IPs established accepted connections on port 3389, and 23 successful authentications originated from Uruguay — a country entirely outside PHTG's operating region. A basic NSG rule restricting RDP to known IP ranges or a VPN requirement would have prevented the entire attack chain.
+* Weak credential on an internet-facing VM: The account vmadminusername — a generic, predictable administrator account name — was the only thing standing between the open internet and the VM. 646 brute-force attempts were made before 23 successful logons were recorded. A strong, non-guessable account name combined with an account lockout policy would have significantly raised the barrier to entry.
+* Defender running in passive mode: Windows Defender detected and flagged Trojan:Win32/Meterpreter.RPZ!MTB three times but took no remediation action because it was operating in passive mode. The payload executed freely after each detection. Defender should have been in active mode to quarantine the file on first detection.
+* No OPSEC controls on social media: The LinkedIn post by Sarah Chen exposed the VM name, public IP, subscription ID, and Azure portal details to the open internet. The first scanning activity hit port 3389 within hours of the post going live. A clear OPSEC policy prohibiting the sharing of infrastructure details on social media would have prevented the initial exposure entirely.
+
+## Remediation Actions
+
+* Immediately restrict RDP access on azwks-phtg-02 via NSG rules — RDP should never be exposed directly to the internet.
+* Disable or rename the vmadminusername account, reset credentials, and enforce a strong password policy across all VM administrator accounts.
+* Switch Windows Defender from passive mode to active mode and verify protection status across all endpoints in the environment.
+* Remove PHTG.exe, Launch.bat, and all associated payload files from C:\ProgramData\PHTG\HealthCloud\ and audit the directory for any additional attacker-placed files.
+* Block 173.244.55.128, 173.244.55.130, and 173.244.55.131 at the network perimeter — these IPs were used for both RDP brute-force and Meterpreter C2.
+* Review and audit all files opened during the compromised sessions, particularly notes_sarah.txt, to assess what internal information the attacker may have accessed.
+* Establish a formal OPSEC policy governing what infrastructure information employees may share on social media and professional networking platforms.
+

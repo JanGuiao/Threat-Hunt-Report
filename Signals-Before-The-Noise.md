@@ -1,5 +1,5 @@
 # Threat Hunt Report: Signals Before The Noise 
-#### Author: Jan Guiao
+#### Participant: Jan Guiao
 #### Date: April 2026
 
 ## Platforms and Languages Used
@@ -42,8 +42,10 @@ Clear as day from the Azure Portal screenshot- the hostname or VM name is azwks-
 
 ### Answer
 awks-phtg-02
+</details> 
 
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q02 - Public Exposure Vector
 
 ### Objective 
@@ -61,8 +63,10 @@ Right there in the Networking section of the screnshot is where the Public IP Ad
 
 ### Answer
 74.249.82.162
+</details> 
 
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ###  Q03 - When Context Becomes Actionable
 
 ### Objective 
@@ -80,7 +84,10 @@ A public IP address directly associated with the VM is the most likely the ident
 
 ### Answer
 D
+</details> 
 
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q04 - OSINT Correlation
 
 ### Objective
@@ -100,8 +107,10 @@ The monitor shows the Azure portal and what looks like a terminal/log output. Lo
 
 ### Answer
 C
+</details> 
 
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q05 - Evidence Source Selection
 
 ### Objective
@@ -114,8 +123,10 @@ Azure network network or platform analytics would show inbound connection attemp
 
 ### Answer
 D
+</details> 
 
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q06 - Broad Scanning Indicators
 
 ### Objective
@@ -132,7 +143,10 @@ Format: Port number
 
 ### Answer 
 3389
+</details> 
 
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q07 - Exposure Activity Volume
 
 ### Objective
@@ -146,8 +160,10 @@ Regarding the previous (Q06), we can see that 194 inbound connection attempts ag
 
 ### Answer
 194
+</details> 
 
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q08 - Source Diversity
 
 ### Objective
@@ -161,7 +177,10 @@ Format: Number only
 
 ### Answer
 173
+</details> 
 
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q09 - Connection Outcomes
 
 ### Objective
@@ -177,7 +196,10 @@ Format: Number only
 
 ### Answer
 57
+</details> 
 
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q10 - Countries with RDP Activity
 
 ### Objective
@@ -196,10 +218,12 @@ The ipv4_lookup() guidance — the briefing instructed analysts to "prepend this
 
 <img width="902" height="356" alt="image" src="https://github.com/user-attachments/assets/a72198fb-d8fa-454c-ab29-a6a870b0e2bc" />
 
-
 ### Answer
 11
+</details> 
 
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q11 - Total External Auth Volume
 
 ### Objective
@@ -213,8 +237,10 @@ This pulls all authentication events originating from public/external IPs agains
 
 ### Answer
 693
+</details> 
 
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q12 - RDP Auth Volume 
 
 ### Objective
@@ -228,8 +254,10 @@ It is worth noting that in this dataset RDP auth volume shows both Network and R
 
 ### Answer
 675
+</details> 
 
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q13 - Dominant Auth Outcome
 
 ### Objective
@@ -244,8 +272,10 @@ Of 675 external RDP-related authentication events, 646 were LogonFailed and only
 
 ### Answer
 LogonFailed
+</details> 
 
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q14 - Dominant Failure Reason
 
 ### Objective
@@ -259,8 +289,10 @@ Of 646 failed external RDP authentication attempts 637 failed due to InvalidUser
 
 ### Answer
 InvalidUserNameOrPassword
+</details> 
 
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q15 - Countries from Auth Activity
 
 ### Objective
@@ -275,8 +307,10 @@ RDP-related authentication attempts originated from 17 distinct countries, confi
 
 ### Answer
 17
+</details> 
 
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q16 - Countries with Successful Auth
 
 ### Objective
@@ -290,8 +324,10 @@ Format: Number only
 
 ### Answer
 2
+</details> 
 
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q17 - Successful Countries
 
 ### Objective
@@ -305,7 +341,10 @@ To identify this, we extended the Q16 query by replacing dcount(country_name) wi
 
 ### Answer
 Uruguay, United States
+</details> 
 
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q18 - Unexpected Country
 
 ### Objective
@@ -319,8 +358,10 @@ PHTG operates exclusively in the United States, making the 23 successful RDP aut
 
 ### Answer
 Uruguay
+</details> 
 
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q19 - Account Used
 
 ### Objective
@@ -335,9 +376,10 @@ To identify this, we restructured the query into two let blocks to avoid the KQL
 
 ### Answer
 vmadminusername
+</details> 
 
-
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q20 - Uruguay Success Count
 
 ### Objective
@@ -352,8 +394,10 @@ Going back to the Q17 query, results already revealed that 23 successful RDP aut
 
 ### Answer
 23
+</details> 
 
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q21 - First RemoteIP from Uruguay
 
 ### Objective
@@ -370,8 +414,10 @@ To identify this, we took the GeoIP-enriched query from Q20, filtered to Uruguay
 
 ### Answer
 173.244.55.131
+</details> 
 
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q22 - Second RemoteIP from Uruguay
 
 ### Objective
@@ -385,8 +431,10 @@ To identify this, we reused the Q21 query and added where RemoteIP != "173.244.5
 
 ### Answer
 173.244.55.128
+</details> 
 
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q23 - First Notable Process
 
 ### Objective
@@ -404,9 +452,10 @@ The -NoProfile -ExecutionPolicy Bypass flags are classic attacker PowerShell exe
 
 ### Answer
 notepad.exe
+</details> 
 
-
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q24 - Sensitive Text File
 
 ### Objective
@@ -420,8 +469,10 @@ Format: FileName
 
 ### Answer
 notes_sarah.txt
+</details> 
 
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q25 - First Executable Form
 
 ### Objective
@@ -438,8 +489,10 @@ To identify this, we filtered DeviceFileEvents for ActionType == "FileRenamed" w
 
 ### Answer
 Sarah_Chen_Notes.exe > .exe.Txt
+</details> 
 
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q26 - Double-Extension Evasion
 
 ### Objective
@@ -452,8 +505,10 @@ Prior to execution, the payload existed under the filename Sarah_Chen_Notes.exe.
 
 ### Answer
 Sarah_Chen_Notes.exe.Txt
+</details> 
 
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q27 - File SHA256
 
 ### Objective
@@ -469,9 +524,10 @@ The SHA256 hash of the payload file Sarah_Chen_Notes.exe is 224462ce5e3304e3fd08
 
 ### Answer
 224462ce5e3304e3fd0875eeabc829810a894911e3d4091d4e60e67a2687e695
+</details> 
 
-
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q28 - Final File Name
 
 ### Objective
@@ -492,8 +548,10 @@ Tracking the payload hash 224462ce5e3304e3fd0875eeabc829810a894911e3d4091d4e60e6
 12/13 10:16 — Renamed to PHTG.exe — final form, blending into the legitimate HealthCloud directory
 
 ### Answer
+</details> 
 
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q29 - File Classification
 
 ### Objective
@@ -506,8 +564,10 @@ Windows Defender classified the payload as Trojan:Win32/Meterpreter.RPZ!MTB, ide
 
 ### Answer
 Meterpreter
+</details> 
 
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q30 - Why Did It Run?
 
 ### Objective
@@ -523,8 +583,10 @@ The AdditionalFields JSON from the AntivirusDetectionActionType events in Q29 ex
 
 ### Answer
 Passive Mode
+</details> 
 
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q31 - First Execution
 
 ### Objective
@@ -541,9 +603,10 @@ Then on 12/13 it shifts into the second phase — now it's running as PHTG.exe, 
 
 ### Answer
 Sarah_Chen_Notes.exe
+</details> 
 
-
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q32 - Parent Process
 
 ### Objective
@@ -558,7 +621,10 @@ The later execution phase on 12/13 was no longer being manually launched from ex
 
 ### Answer
 cmd.exe
+</details> 
 
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q33 - Batch File Wrapper
 
 ### Objective
@@ -573,9 +639,10 @@ The batch file responsible for wrapping the payload was C:\ProgramData\PHTG\Heal
 
 ### Answer
 C:\ProgramData\PHTG\HealthCloud\Launch.bat
+</details> 
 
-
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q34 - C2 IP
 
 ### Objective
@@ -593,8 +660,10 @@ https://www.rapid7.com/blog/post/2013/02/14/port-forwarding-how-to-verify-that-t
 
 ### Answer
 173.244.55.130
+</details> 
 
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q35 - C2 Geography
 
 ### Objective
@@ -608,8 +677,10 @@ The C2 infrastructure at 173.244.55.130 is located in Uruguay, South America. Th
 
 ### Answer
 Uruguay, South America
+</details> 
 
-
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q36 - C2 Remote Port
 
 ### Objective
@@ -626,7 +697,10 @@ https://www.rapid7.com/blog/post/2013/02/14/port-forwarding-how-to-verify-that-t
 
 ### Answer
 4444
+</details> 
 
+<details>
+<summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
 ### Q37 - Repurposed Baseline
 
 ### Objective
@@ -641,5 +715,5 @@ The attacker didn't build their own persistence directory — they just moved in
 
 ### Answer
 HealthCloud
-
+</details> 
 

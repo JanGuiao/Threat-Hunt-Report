@@ -218,10 +218,309 @@ This pulls all authentication events originating from public/external IPs agains
 ### Q12 - RDP Auth Volume 
 
 ### Objective
+How many externally sourced authentication events related to Remote Desktop were recorded?
+
+Format: Number only
+
+### Evidence
+It is worth noting that in this dataset RDP auth volume shows both Network and RemoteInteractive logon types together - not just RemoteInteractive alone.
+<img width="899" height="354" alt="image" src="https://github.com/user-attachments/assets/167f6781-6c5b-4f41-8faa-0aae3d7a81e2" />
+
+### Answer
+675
+
+
+### Q13 - Dominant Auth Outcome
+
+### Objective
+Which authentication outcome was most frequently recorded for RDP-related logon activity?
+
+Format: ActionType value
+
+### Evidence
+Of 675 external RDP-related authentication events, 646 were LogonFailed and only 29 were LogonSuccess! This tells us that there is an overwhelming failure rate confirms sustatined brute-force credential stuffing against the exposed RDP service.
+
+<img width="899" height="433" alt="image" src="https://github.com/user-attachments/assets/e0876af4-ee8d-4fa1-ac2d-6f348f7f1947" />
+
+### Answer
+LogonFailed
+
+
+### Q14 - Dominant Failure Reason
+
+### Objective
+What was the most common failure reason recorded for RDP-related authentication attempts?
+
+Format: FailureReason value
+
+### Evidence
+Of 646 failed external RDP authentication attempts 637 failed due to InvalidUserNameOrPassword; indicating brute-force/credential stuffing behavior.
+<img width="899" height="429" alt="image" src="https://github.com/user-attachments/assets/e118ebdb-8f0e-4538-8458-e1d64f9dd5e7" />
+
+### Answer
+InvalidUserNameOrPassword
+
+
+### Q15 - Countries from Auth Activity
+
+### Objective
+How many unique countries were associated with RDP-related authentication events for the device?
+
+Format: Number only
+
+### Evidence
+RDP-related authentication attempts originated from 17 distinct countries, confirmed via GeoIP enrichment using the briefing's reusable GeoTable snippet.
+<img width="894" height="368" alt="image" src="https://github.com/user-attachments/assets/8d221dbf-ee11-4b87-b7f9-af64ae989670" />
+
+
+### Answer
+17
+
+
+### Q16 - Countries with Successful Auth
+
+### Objective
+Of those countries, how many had at least one successful authentication event?
+
+Format: Number only
+
+### Evidence
+17 countries associated with RDP authentication activity, only 2 had at least one successful logon. This is a critical finding - brute-force attempts from 17 countries, but successful authentication achieved from just 2. To isolate this, we scoped the same GeoIP-enriched query from Q15 but added a single filter — where ActionType == "LogonSuccess" — narrowing from all 675 RDP auth events down to just the 29 successful ones. The dcount(country_name) aggregation then counted distinct countries remaining after that filter, giving us the 2 countries that successfully authenticated rather than just attempted. The GeoTable externaldata() block from the briefing was prepended as before to perform the CIDR-based geographic enrichment on the RemoteIP field.
+<img width="896" height="362" alt="image" src="https://github.com/user-attachments/assets/372eea18-189d-41e9-82fe-7884ca2c3682" />
+
+### Answer
+2
+
+
+### Q17 - Successful Countries
+
+### Objective
+Which countries were associated with successful RDP authentication events?
+
+Format: Country 1, Country 2
 
 ### Evidence
 
 ### Answer
 
 
+### Q17 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+
+
+### Q17 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+
+
+
+### Q17 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+
+
+### Q17 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+
+
+### Q17 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+
+
+### Q17 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+
+
+
+### Q17 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+
+
+### Q17 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+
+### Q17 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+### Q17 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+
+
+### Q17 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+
+### Q17 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+
+
+### Q17 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+
+
+### Q17 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+
+
+### Q17 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+
+### Q17 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+
+
+### Q17 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+
+
+### Q17 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+
+
+### Q17 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+
+### Q17 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+
+### Q17 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+
+### Q17 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
+
+### Q17 - Successful Countries
+
+### Objective
+
+### Evidence
+
+### Answer
 

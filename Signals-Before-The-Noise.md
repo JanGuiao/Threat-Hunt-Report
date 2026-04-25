@@ -418,99 +418,170 @@ Format: FileName
 
 <img width="885" height="495" alt="image" src="https://github.com/user-attachments/assets/1db02eef-d543-4f72-a5f1-dd5947afeb32" />
 
-
 ### Answer
 notes_sarah.txt
 
 
-### Q25 - Successful Countries
+### Q25 - First Executable Form
 
 ### Objective
+Looking at FileRenamed events for the payload file, what is the first renamed filename where the extension turns the file into a Windows executable?
+
+Format: FileName
 
 ### Evidence
+The first file rename event converting a file into a Windows executable occurred on 2025-12-12 at 14:18:38 UTC. The file Sarah_Chen_Notes.exe.Txt was renamed to Sarah_Chen_Notes.exe in C:\Users\vmAdminUsername\Documents\PHTG\, initiated by explorer.exe under vmadminusername.
+
+To identify this, we filtered DeviceFileEvents for ActionType == "FileRenamed" with executable extensions, excluding the system account and SoftwareDistribution path to eliminate Windows Update noise, leaving only attacker-controlled file activity under vmadminusername.
+
+<img width="886" height="503" alt="image" src="https://github.com/user-attachments/assets/41c4fa82-8290-4b7f-95e3-951d8afd82cd" />
+
+### Answer
+Sarah_Chen_Notes.exe > .exe.Txt
+
+
+### Q26 - Double-Extension Evasion
+
+### Objective
+Between the file arriving as a text file and running as an executable, the attacker briefly used a filename with two extensions. What was it?
+
+Format: FileName
+### Evidence
+Prior to execution, the payload existed under the filename Sarah_Chen_Notes.exe.Txt — a double-extension file. This technique takes advantage of Windows hiding known file extensions by default, meaning the file would appear as Sarah_Chen_Notes.exe to a user browsing the directory, concealing its true .Txt extension.
+<img width="885" height="491" alt="image" src="https://github.com/user-attachments/assets/8965905f-7fc5-4447-8247-e9e0ca480f60" />
+
+### Answer
+Sarah_Chen_Notes.exe.Txt
+
+
+### Q27 - File SHA256
+
+### Objective
+File names lie. Hashes do not. What is the SHA256 of the payload file?
+
+Format: 64-character hex string
+
+### Evidence
+The SHA256 hash of the payload file Sarah_Chen_Notes.exe is 224462ce5e3304e3fd0875eeabc829810a894911e3d4091d4e60e67a2687e695. The hash is consistent across both recorded instances of the file — the original location in C:\Users\vmAdminUsername\Documents\PHTG\ on 12/12 and the copy moved to C:\ProgramData\PHTG\HealthCloud\ on 12/13 — confirming it is the same file regardless of location or name changes. This hash was recovered from the SHA256 field in the FileRenamed events identified in Q25.
+
+<img width="885" height="667" alt="image" src="https://github.com/user-attachments/assets/246e49dd-8884-4cae-8cd0-eba946284c59" />
+
+
+### Answer
+224462ce5e3304e3fd0875eeabc829810a894911e3d4091d4e60e67a2687e695
+
+
+
+### Q28 - Final File Name
+
+### Objective
+Using the SHA256 from Q27, track the file forward through rename events. What is the final observed file name tied to this hash?
+
+Format: FileName
+
+### Evidence
+Tracking the payload hash 224462ce5e3304e3fd0875eeabc829810a894911e3d4091d4e60e67a2687e695 forward through the rename chain identified in Q25, the final observed filename was PHTG.exe. On 2025-12-13 at 10:16:22 UTC, the file was renamed from Sarah_Chen_Notes.exe to PHTG.exe in C:\ProgramData\PHTG\HealthCloud\ — deliberately named to blend in with PHTG's legitimate HealthCloud service directory, making it harder to identify as malicious during a casual review of running processes or installed files.
+<img width="961" height="697" alt="image" src="https://github.com/user-attachments/assets/9adcfe67-6cb4-449f-8760-617f9fa32913" />
+
+12/12 14:11 — Downloaded as Sarah_Chen_Notes.Txt.crdownload to C:\Users\vmAdminUsername\Downloads\ — the .crdownload extension indicates it was downloaded via Chrome/Edge
+12/12 14:13 — Download completed, renamed to Sarah_Chen_Notes.Txt
+12/12 14:13 — Moved to C:\Users\vmAdminUsername\Documents\PHTG\
+12/12 14:14 — Renamed to Sarah_Chen_Notes.exe.Txt — double-extension applied
+12/12 14:18 — Renamed to Sarah_Chen_Notes.exe — converted to executable
+12/13 10:14 — Copied to C:\ProgramData\PHTG\HealthCloud\
+12/13 10:16 — Renamed to PHTG.exe — final form, blending into the legitimate HealthCloud directory
 
 ### Answer
 
 
-### Q26 - Successful Countries
+### Q29 - File Classification
 
 ### Objective
+External reputation services may not know this sample. MDE's own detection engine does. According to Microsoft Defender telemetry on the device, what software family is this file classified under?
+
+Format: Malware family name
+### Evidence
+Windows Defender classified the payload as Trojan:Win32/Meterpreter.RPZ!MTB, identifying the malware family as Meterpreter — a well-known post-exploitation framework payload commonly deployed via Metasploit.
+<img width="930" height="671" alt="image" src="https://github.com/user-attachments/assets/5b348c37-3111-4c24-b2e6-b36357ec2353" />
+
+### Answer
+Meterpreter
+
+
+### Q30 - Why Did It Run?
+
+### Objective
+Defender quarantined the payload three times between 14:11 and 14:17 on 12 December. Minutes later the same file executed without being blocked. What change to Defender's operating state allowed execution to proceed?
+
+Format: Defender operating mode
 
 ### Evidence
 
-### Answer
+The AdditionalFields JSON from the AntivirusDetectionActionType events in Q29 explicitly states "ReportSource":"Windows Defender Antivirus passive mode". Defender was quarantining the payload during its initial download and rename stages, but was subsequently switched to passive mode — a state where Defender detects and reports threats but does not block or remediate them.
 
-### Q27 - Successful Countries
+<img width="938" height="693" alt="image" src="https://github.com/user-attachments/assets/d4f9d215-b1c2-4330-8d45-053fc8505823" />
+
+### Answer
+Passive Mode
+
+
+### Q31 - First Execution
 
 ### Objective
+The payload executed multiple times across two phases. What filename did it run under during the first phase?
+
+Format: FileName
+### Evidence
+So the payload first ran as Sarah_Chen_Notes.exe — three times on 12/12 at 14:18, 14:20, and 14:22 UTC. Each time it was launched straight from explorer.exe under vmadminusername, so the attacker was just double-clicking it from the file explorer like a normal user would.
+
+Then on 12/13 it shifts into the second phase — now it's running as PHTG.exe, and this time it's not being manually clicked. It's being launched by cmd.exe executing Launch.bat from inside the HealthCloud directory.
+
+<img width="936" height="720" alt="image" src="https://github.com/user-attachments/assets/dfb39509-d094-4c2d-aab4-1c8ec8a46347" />
+
+
+### Answer
+Sarah_Chen_Notes.exe
+
+
+
+### Q32 - Parent Process
+
+### Objective
+The payload's later executions were launched differently to the initial ones. Which process initiated the later phase?
+
+Format: InitiatingProcessFileName
 
 ### Evidence
+The later execution phase on 12/13 was no longer being manually launched from explorer.exe like the first phase. Instead, cmd.exe was the initiating process, running cmd.exe /c ""C:\ProgramData\PHTG\HealthCloud\Launch.bat"" — meaning the attacker had wired up Launch.bat to handle execution automatically. That's the shift from manual interaction to an automated persistence mechanism. We already had this from the DeviceProcessEvents results pulled in Q31.
+
+<img width="927" height="713" alt="image" src="https://github.com/user-attachments/assets/08eb5929-18d7-478e-ae40-34e92520e6c8" />
 
 ### Answer
+cmd.exe
 
-
-
-### Q28 - Successful Countries
+### Q33 - Batch File Wrapper
 
 ### Objective
+The later executions were not launched directly. A command shell wrapped them. From the initiating command line, what is the full path of the .bat file that ran the payload?
+
+Format: Full file path
 
 ### Evidence
+The batch file responsible for wrapping the payload was C:\ProgramData\PHTG\HealthCloud\Launch.bat. Looking at the DeviceProcessEvents results, we can see PHTG.exe running twice — at 10:21:48 and 10:22:36 UTC on 12/13 — both times kicked off by cmd.exe running the same command: cmd.exe /c ""C:\ProgramData\PHTG\HealthCloud\Launch.bat".
+
+<img width="935" height="647" alt="image" src="https://github.com/user-attachments/assets/f7ceae36-0f30-4a11-b815-9fa8207d5802" />
 
 ### Answer
-
-
-### Q29 - Successful Countries
-
-### Objective
-
-### Evidence
-
-### Answer
+C:\ProgramData\PHTG\HealthCloud\Launch.bat
 
 
 
-### Q30 - Successful Countries
+### Q34 - C2 IP
 
 ### Objective
+After execution, what external IP did the compromised device attempt to communicate with?
 
-### Evidence
-
-### Answer
-
-
-
-### Q31 - Successful Countries
-
-### Objective
-
-### Evidence
-
-### Answer
-
-
-
-### Q32 - Successful Countries
-
-### Objective
-
-### Evidence
-
-### Answer
-
-
-### Q33 - Successful Countries
-
-### Objective
-
-### Evidence
-
-### Answer
-
-
-
-### Q34 - Successful Countries
-
-### Objective
+Format: IPv4 address
 
 ### Evidence
 

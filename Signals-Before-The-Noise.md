@@ -46,6 +46,7 @@ awks-phtg-02
 
 <details>
 <summary id="-flag-2">🚩 <strong>Flag 2: <Technique Name></strong></summary>  
+ 
 ### Q02 - Public Exposure Vector
 
 ### Objective 
